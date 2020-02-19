@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mall.item.mapper.CategoryMapper">
+
+    <sql id="CategoryList">
+        id,name,parent_id,is_parent,sort
+    </sql>
+
+    <select id="findCategoryByBid" resultType="com.mall.item.pojo.Category">
+        SELECT
+        <include refid="CategoryList"/>
+        FROM tb_category
+        WHERE id in
+        (SELECT category_id
+        FROM tb_category_brand
+        WHERE brand_id = #{bid})
+    </select>
+
+</mapper>
