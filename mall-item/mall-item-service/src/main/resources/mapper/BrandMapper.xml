@@ -11,4 +11,11 @@
         DELETE FROM tb_category_brand WHERE brand_id = #{id}
     </delete>
 
+    <!--根据分类id查询品牌-->
+    <select id="findBrandByCid" resultType="com.mall.item.pojo.Brand">
+        SELECT * FROM tb_brand b
+        INNER JOIN tb_category_brand cb ON b.id=cb.brand_id
+        WHERE cb.category_id=#{cid}
+    </select>
+
 </mapper>

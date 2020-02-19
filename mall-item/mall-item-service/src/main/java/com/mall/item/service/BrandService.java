@@ -37,4 +37,11 @@ public interface BrandService {
      * @return
      */
     void updateBrand(Brand brand, List<Long> cids);
+
+    /**
+     * 根据分类id查询品牌
+     * @param cid
+     * @return
+     */
+    List<Brand> findBrandByCid(Long cid);
 }

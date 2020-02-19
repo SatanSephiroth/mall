@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mall.item.pojo.Brand;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * @author YZO
  * @date 2020/1/23 20:26
@@ -22,4 +24,11 @@ public interface BrandMapper extends BaseMapper<Brand> {
      * @param id
      */
     void deleteBrandCategoryByBid(@Param("id") Long id);
+
+    /**
+     * 根据分类id查询品牌
+     * @param cid
+     * @return
+     */
+    List<Brand> findBrandByCid(@Param("cid") Long cid);
 }

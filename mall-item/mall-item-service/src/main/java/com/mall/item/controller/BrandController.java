@@ -24,6 +24,7 @@ public class BrandController {
 
     /**
      * 根据查询条件分页并排序查询品牌信息
+     *
      * @param key
      * @param page
      * @param rows
@@ -45,18 +46,20 @@ public class BrandController {
 
     /**
      * 新增品牌
+     *
      * @param brand
      * @param cids
      * @return
      */
     @PostMapping
-    public ResponseEntity saveBrand(Brand brand, @RequestParam("cids")List<Long> cids){
-         brandService.saveBrand(brand, cids);
+    public ResponseEntity saveBrand(Brand brand, @RequestParam("cids") List<Long> cids) {
+        brandService.saveBrand(brand, cids);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
     /**
      * 根据id删除品牌
+     *
      * @param id
      * @return
      */
@@ -75,16 +78,30 @@ public class BrandController {
 
     /**
      * 修改品牌参数
+     *
      * @param brand
      * @param cids
      * @return
      */
     @PutMapping
-    public ResponseEntity updateBrand(Brand brand,@RequestParam("cids") List<Long> cids){
+    public ResponseEntity updateBrand(Brand brand, @RequestParam("cids") List<Long> cids) {
         //校验参数
         if (brand == null || CollectionUtils.isEmpty(cids))
             return ResponseEntity.badRequest().build();
         brandService.updateBrand(brand, cids);
         return ResponseEntity.ok().build();
+    }
+
+    /**
+     * 根据分类id查询品牌
+     * @param cid
+     * @return
+     */
+    @GetMapping("cid/{cid}")
+    public ResponseEntity<List<Brand>> findBrandByCid(@PathVariable("cid") Long cid) {
+        List<Brand> brandList = brandService.findBrandByCid(cid);
+        if (CollectionUtils.isEmpty(brandList))
+            return ResponseEntity.notFound().build();
+        return ResponseEntity.ok(brandList);
     }
 }
