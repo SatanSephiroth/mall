@@ -1,7 +1,11 @@
 package com.mall.item.service;
 
+import com.mall.item.pojo.Sku;
+import com.mall.item.pojo.SpuDetail;
 import com.mall.vo.PageResult;
 import com.mall.item.bo.SpuBo;
+
+import java.util.List;
 
 /**
  * @author YZO
@@ -24,4 +28,18 @@ public interface GoodService {
      * @return
      */
     int saveGood(SpuBo spuBo);
+
+    /**
+     * 根据spuId查询商品信息
+     * @param spuId
+     * @return
+     */
+    SpuDetail findSpuDetailBySouId(Long spuId);
+
+    /**
+     * 根据spuId查询sku集合
+     * @param spuId
+     * @return
+     */
+    List<Sku> findSkuBySpuId(Long spuId);
 }

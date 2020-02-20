@@ -1,5 +1,6 @@
 package com.mall.item.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +17,7 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Stock {
+    @TableId
     private Long skuId;
     private Integer seckillStock;
     private Integer seckillTotal;

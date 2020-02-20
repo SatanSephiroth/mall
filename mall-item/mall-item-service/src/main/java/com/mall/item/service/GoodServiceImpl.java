@@ -76,6 +76,7 @@ public class GoodServiceImpl implements GoodService {
 
     /**
      * 新增商品
+     *
      * @param spuBo
      * @return
      */
@@ -91,7 +92,7 @@ public class GoodServiceImpl implements GoodService {
         SpuDetail spuDetail = spuBo.getSpuDetail();
         //获取spu_id
         QueryWrapper<Spu> wrapper = new QueryWrapper<>();
-        wrapper.eq("title",spuBo.getTitle());
+        wrapper.eq("title", spuBo.getTitle());
         Spu spu = spuMapper.selectOne(wrapper);
         spuDetail.setSpuId(spu.getId());
         spuDetailMapper.insert(spuDetail);
@@ -108,6 +109,35 @@ public class GoodServiceImpl implements GoodService {
             stockMapper.insert(stock);
         });
         return 0;
+    }
+
+    /**
+     * 根据spuId查询商品信息
+     *
+     * @param spuId
+     * @return
+     */
+    @Override
+    public SpuDetail findSpuDetailBySouId(Long spuId) {
+        return spuDetailMapper.selectById(spuId);
+    }
+
+    /**
+     * 根据spuId查询sku集合
+     *
+     * @param spuId
+     * @return
+     */
+    @Override
+    public List<Sku> findSkuBySpuId(Long spuId) {
+        QueryWrapper<Sku> wrapper = new QueryWrapper<>();
+        wrapper.eq("spu_id", spuId);
+        List<Sku> skuList = skuMapper.selectList(wrapper);
+        skuList.forEach(sku -> {
+            Stock stock = stockMapper.selectById(sku.getId());
+            sku.setStock(stock.getStock());
+        });
+        return skuList;
     }
 
 }
