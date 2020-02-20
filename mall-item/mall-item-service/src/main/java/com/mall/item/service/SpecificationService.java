@@ -20,7 +20,11 @@ public interface SpecificationService {
     /**
      * 根据分类id查询规格参数
      * @param gid
+     * @param cid
+     * @param generic
+     * @param searching
      * @return
      */
-    List<SpecParam> findParams(Long gid);
+    List<SpecParam> findParams(Long gid, Long cid, Boolean generic, Boolean searching);
+
 }

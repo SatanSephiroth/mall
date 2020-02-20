@@ -22,16 +22,17 @@ import java.util.List;
 @RequestMapping("spec")
 public class SpecificationController {
     @Autowired
-    private SpecificationService specificationService;
+    private SpecificationService specService;
 
     /**
      * 根据分类id查询参数组
+     *
      * @param cid
      * @return
      */
     @GetMapping("groups/{cid}")
-    public ResponseEntity<List<SpecGroup>> findGroupByCid(@PathVariable("cid") Long cid){
-        List<SpecGroup> groups = specificationService.findGroupByCid(cid);
+    public ResponseEntity<List<SpecGroup>> findGroupByCid(@PathVariable("cid") Long cid) {
+        List<SpecGroup> groups = specService.findGroupByCid(cid);
         if (CollectionUtils.isEmpty(groups)) {
             return ResponseEntity.notFound().build();
         }
@@ -39,16 +40,20 @@ public class SpecificationController {
     }
 
     /**
-     * 根据分类id查询参数组
+     * 查询参数组
      * @param gid
      * @return
      */
     @GetMapping("params")
-    public ResponseEntity<List<SpecParam>> findParam(@RequestParam("gid") Long gid){
-       List<SpecParam> params = specificationService.findParams(gid);
-       if (CollectionUtils.isEmpty(params)){
-           return ResponseEntity.notFound().build();
-       }
-       return ResponseEntity.ok(params);
+    public ResponseEntity<List<SpecParam>> findParam(
+            @RequestParam(value = "gid",required = false) Long gid,
+            @RequestParam(value = "cid",required = false) Long cid,
+            @RequestParam(value = "generic",required = false) Boolean generic,
+            @RequestParam(value = "searching",required = false) Boolean searching) {
+        List<SpecParam> params = specService.findParams(gid,cid,generic,searching);
+        if (CollectionUtils.isEmpty(params)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(params);
     }
 }

@@ -50,8 +50,7 @@ public class GoodServiceImpl implements GoodService {
         //模糊查询
         queryWrapper.like("title", key);
         //添加上下架过滤条件
-        if (saleable != null)
-            queryWrapper.eq("saleable", saleable);
+        queryWrapper.eq(saleable != null, "saleable", saleable);
         //添加分页条件
         Page<Spu> iPage = new Page<>(page, rows);
         //查询获得spu集合
