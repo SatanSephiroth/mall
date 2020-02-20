@@ -17,4 +17,11 @@ public interface GoodService {
      * @return
      */
     PageResult<SpuBo> findSpuByPage(String key, Boolean saleable, Integer page, Integer rows);
+
+    /**
+     * 新增商品
+     * @param spuBo
+     * @return
+     */
+    int saveGood(SpuBo spuBo);
 }

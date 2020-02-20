@@ -4,10 +4,13 @@ import com.mall.vo.PageResult;
 import com.mall.item.bo.SpuBo;
 import com.mall.item.service.GoodService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 /**
@@ -40,5 +43,14 @@ public class GoodsController {
         return ResponseEntity.ok(result);
     }
 
-
+    /**
+     * 新增商品
+     * @param spuBo
+     * @return
+     */
+    @PostMapping("goods")
+    public ResponseEntity saveGood(@RequestBody SpuBo spuBo){
+        goodService.saveGood(spuBo);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
 }
