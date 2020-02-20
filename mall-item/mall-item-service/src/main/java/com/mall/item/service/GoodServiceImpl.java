@@ -96,10 +96,16 @@ public class GoodServiceImpl implements GoodService {
         Spu spu = spuMapper.selectOne(wrapper);
         spuDetail.setSpuId(spu.getId());
         spuDetailMapper.insert(spuDetail);
+        Long spuId = spu.getId();
+        //新增sku和stock
+        saveSkuAndStock(spuBo, spuId);
+        return 0;
+    }
+
+    private void saveSkuAndStock(SpuBo spuBo, Long spuId) {
         //新增sku
-        List<Sku> skuList = spuBo.getSkus();
-        skuList.forEach(sku -> {
-            sku.setId(null).setSpuId(spu.getId())
+        spuBo.getSkus().forEach(sku -> {
+            sku.setId(null).setSpuId(spuId)
                     .setCreateTime(new Date())
                     .setLastUpdateTime(sku.getCreateTime());
             skuMapper.insert(sku);
@@ -108,7 +114,6 @@ public class GoodServiceImpl implements GoodService {
             stock.setSkuId(sku.getId()).setStock(sku.getStock());
             stockMapper.insert(stock);
         });
-        return 0;
     }
 
     /**
@@ -138,6 +143,36 @@ public class GoodServiceImpl implements GoodService {
             sku.setStock(stock.getStock());
         });
         return skuList;
+    }
+
+    /**
+     * 修改商品
+     *
+     * @param spuBo
+     * @return
+     */
+    @Override
+    @Transactional
+    public int updateGood(SpuBo spuBo) {
+        //根据spuId查询要删除的sku
+        QueryWrapper<Sku> wrapper = new QueryWrapper<>();
+        wrapper.eq("spu_id", spuBo.getId());
+        List<Sku> skuList = skuMapper.selectList(wrapper);
+        //删除stock记录
+        skuList.forEach(sku -> {
+            stockMapper.deleteById(sku.getId());
+        });
+        //删除sku记录
+        skuMapper.delete(wrapper);
+        //新增sku和stock
+        saveSkuAndStock(spuBo, spuBo.getId());
+        //修改spu信息
+        spuBo.setValid(null).setSaleable(null)
+                .setCreateTime(null).setLastUpdateTime(new Date());
+        spuMapper.updateById(spuBo);
+        //修改spuDetail
+        spuDetailMapper.updateById(spuBo.getSpuDetail());
+        return 0;
     }
 
 }

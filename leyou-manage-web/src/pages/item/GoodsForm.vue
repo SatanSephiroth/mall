@@ -225,7 +225,7 @@ export default {
           // 成功，关闭窗口
           this.$emit("close");
           // 提示成功
-          this.$message.success("保存成功了");
+          this.$message.success("保存成功");
         })
         .catch(() => {
           this.$message.error("保存失败！");

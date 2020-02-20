@@ -42,4 +42,11 @@ public interface GoodService {
      * @return
      */
     List<Sku> findSkuBySpuId(Long spuId);
+
+    /**
+     * 修改商品
+     * @param spuBo
+     * @return
+     */
+    int updateGood(SpuBo spuBo);
 }

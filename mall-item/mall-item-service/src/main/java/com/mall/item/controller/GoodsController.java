@@ -86,5 +86,14 @@ public class GoodsController {
         return ResponseEntity.ok(skuList);
     }
 
-
+    /**
+     * 修改商品
+     * @param spuBo
+     * @return
+     */
+    @PutMapping("goods")
+    public ResponseEntity updateGood(@RequestBody SpuBo spuBo){
+        goodService.updateGood(spuBo);
+        return ResponseEntity.noContent().build();
+    }
 }
