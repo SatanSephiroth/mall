@@ -1,10 +1,14 @@
 package com.mall.item.bo;
 
+import com.mall.item.pojo.Sku;
 import com.mall.item.pojo.Spu;
+import com.mall.item.pojo.SpuDetail;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
+
+import java.util.List;
 
 /**
  * @author YZO
@@ -15,8 +19,8 @@ import lombok.experimental.Accessors;
 @NoArgsConstructor
 @AllArgsConstructor
 public class SpuBo extends Spu {
-
     private String bname;
-
     private String cname;
+    private SpuDetail spuDetail;
+    private List<Sku> skus;
 }
