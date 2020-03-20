@@ -32,7 +32,7 @@ public class GoodsController {
      * @param rows     每页行数
      * @return
      */
-    @GetMapping("spu/page")//key=&saleable=true&page=1&rows=5
+    @GetMapping("spu/page")
     public ResponseEntity<PageResult<SpuBo>> findSpuByPage(
             @RequestParam(value = "key", required = false) String key,
             @RequestParam(value = "saleable", required = false) Boolean saleable,
@@ -40,8 +40,9 @@ public class GoodsController {
             @RequestParam(value = "rows", defaultValue = "5") Integer rows
     ) {
         PageResult<SpuBo> result = goodService.findSpuByPage(key, saleable, page, rows);
-        if (result == null || CollectionUtils.isEmpty(result.getItems()))
+        if (result == null || CollectionUtils.isEmpty(result.getItems())) {
             return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(result);
     }
 
@@ -66,8 +67,9 @@ public class GoodsController {
     @GetMapping("spu/detail/{spuId}")
     public ResponseEntity<SpuDetail> findSpuDetailBySouId(@PathVariable("spuId") Long spuId) {
         SpuDetail spuDetail = goodService.findSpuDetailBySouId(spuId);
-        if (spuDetail == null)
+        if (spuDetail == null) {
             return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(spuDetail);
     }
 
@@ -81,8 +83,9 @@ public class GoodsController {
     public ResponseEntity<List<Sku>> findSkuBySpuId(
             @RequestParam("id") Long spuId) {
         List<Sku> skuList = goodService.findSkuBySpuId(spuId);
-        if (CollectionUtils.isEmpty(skuList))
+        if (CollectionUtils.isEmpty(skuList)) {
             return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(skuList);
     }
 

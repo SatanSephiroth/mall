@@ -23,7 +23,11 @@ public interface CategoryService {
      */
     List<Category> findCategoryByBid(Long bid);
 
-
+    /**
+     * 根据brand_id查询名称
+     * @param ids
+     * @return
+     */
     List<String> findNamesByIds(List<Long> ids);
 
 }

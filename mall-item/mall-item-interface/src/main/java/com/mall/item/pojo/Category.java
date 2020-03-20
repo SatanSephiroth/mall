@@ -3,19 +3,11 @@ package com.mall.item.pojo;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.experimental.Accessors;
 
 /**
  * @author XiaoJack
  * @date 2020/1/23
  */
-@Data
-@Accessors(chain = true)
-@NoArgsConstructor
-@AllArgsConstructor
 @TableName("tb_category")
 public class Category {
     @TableId(type = IdType.AUTO)
@@ -24,4 +16,65 @@ public class Category {
     private Long parentId;
     private Boolean isParent;
     private Integer sort;
+
+    public Category(Long id, String name, Long parentId, Boolean isParent, Integer sort) {
+        this.id = id;
+        this.name = name;
+        this.parentId = parentId;
+        this.isParent = isParent;
+        this.sort = sort;
+    }
+
+    public Category() {
+    }
+
+    public Long getId() {
+        return this.id;
+    }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public Long getParentId() {
+        return this.parentId;
+    }
+
+    public Boolean getIsParent() {
+        return this.isParent;
+    }
+
+    public Integer getSort() {
+        return this.sort;
+    }
+
+    public Category setId(Long id) {
+        this.id = id;
+        return this;
+    }
+
+    public Category setName(String name) {
+        this.name = name;
+        return this;
+    }
+
+    public Category setParentId(Long parentId) {
+        this.parentId = parentId;
+        return this;
+    }
+
+    public Category setIsParent(Boolean isParent) {
+        this.isParent = isParent;
+        return this;
+    }
+
+    public Category setSort(Integer sort) {
+        this.sort = sort;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "Category(id=" + this.getId() + ", name=" + this.getName() + ", parentId=" + this.getParentId() + ", isParent=" + this.getIsParent() + ", sort=" + this.getSort() + ")";
+    }
 }

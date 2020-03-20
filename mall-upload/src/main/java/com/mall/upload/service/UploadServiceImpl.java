@@ -16,7 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @auther YZO
+ * @author YZO
  * @date 2020/1/26 12:16
  */
 @Service
@@ -46,7 +46,6 @@ public class UploadServiceImpl implements UploadService {
                 return null;
             }
             //保存到服务器
-            //file.transferTo(new File("G:\\project\\mall\\leyou-manage-web\\src\\image\\" + originalFilename));
             String ext = StringUtils.substringAfterLast(originalFilename, ".");
             StorePath storePath = storageClient.uploadFile(file.getInputStream(), file.getSize(), ext, null);
 

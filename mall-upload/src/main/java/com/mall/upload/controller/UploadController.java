@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
- * @auther YZO
+ * @author YZO
  * @date 2020/1/26 12:13
  */
 @Controller
@@ -24,8 +24,9 @@ public class UploadController {
     @PostMapping("image")
     public ResponseEntity<String> uploadImage(@RequestParam("file")MultipartFile file){
         String url = uploadService.uploadImage(file);
-        if (StringUtils.isBlank(url))
+        if (StringUtils.isBlank(url)) {
             return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(url);
     }
 }

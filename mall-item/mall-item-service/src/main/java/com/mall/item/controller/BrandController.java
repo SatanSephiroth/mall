@@ -24,7 +24,6 @@ public class BrandController {
 
     /**
      * 根据查询条件分页并排序查询品牌信息
-     *
      * @param key
      * @param page
      * @param rows
@@ -32,15 +31,16 @@ public class BrandController {
      * @param desc
      * @return
      */
-    @GetMapping("page")//key=&page=1&rows=5&sortBy=id&desc=false
+    @GetMapping("page")
     public ResponseEntity<PageResult<Brand>> findBrandByPage(@RequestParam(value = "key", required = false) String key,
                                                              @RequestParam(value = "page", defaultValue = "1") Integer page,
                                                              @RequestParam(value = "rows", defaultValue = "5") Integer rows,
                                                              @RequestParam(value = "sortBy", required = false) String sortBy,
                                                              @RequestParam(value = "desc", required = false) Boolean desc) {
         PageResult<Brand> result = brandService.findBrandByPage(key, page, rows, sortBy, desc);
-        if (result == null || CollectionUtils.isEmpty(result.getItems()))
+        if (result == null || CollectionUtils.isEmpty(result.getItems())) {
             return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(result);
     }
 
@@ -72,7 +72,9 @@ public class BrandController {
         //根据bid删除品牌
         int row = brandService.deleteBrandById(id);
         //校验结果
-        if (row == 0) return ResponseEntity.notFound().build();
+        if (row == 0) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
@@ -86,8 +88,9 @@ public class BrandController {
     @PutMapping
     public ResponseEntity updateBrand(Brand brand, @RequestParam("cids") List<Long> cids) {
         //校验参数
-        if (brand == null || CollectionUtils.isEmpty(cids))
+        if (brand == null || CollectionUtils.isEmpty(cids)) {
             return ResponseEntity.badRequest().build();
+        }
         brandService.updateBrand(brand, cids);
         return ResponseEntity.ok().build();
     }
@@ -100,8 +103,9 @@ public class BrandController {
     @GetMapping("cid/{cid}")
     public ResponseEntity<List<Brand>> findBrandByCid(@PathVariable("cid") Long cid) {
         List<Brand> brandList = brandService.findBrandByCid(cid);
-        if (CollectionUtils.isEmpty(brandList))
+        if (CollectionUtils.isEmpty(brandList)) {
             return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(brandList);
     }
 }

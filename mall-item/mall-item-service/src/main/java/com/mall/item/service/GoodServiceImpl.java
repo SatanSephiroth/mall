@@ -81,7 +81,7 @@ public class GoodServiceImpl implements GoodService {
      * @return
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = RuntimeException.class)
     public int saveGood(SpuBo spuBo) {
         //新增spu
         spuBo.setCreateTime(new Date())
@@ -152,7 +152,7 @@ public class GoodServiceImpl implements GoodService {
      * @return
      */
     @Override
-    @Transactional
+    @Transactional(rollbackFor = RuntimeException.class)
     public int updateGood(SpuBo spuBo) {
         //根据spuId查询要删除的sku
         QueryWrapper<Sku> wrapper = new QueryWrapper<>();

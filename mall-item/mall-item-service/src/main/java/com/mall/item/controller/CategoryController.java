@@ -32,12 +32,16 @@ public class CategoryController {
     @GetMapping("list")
     public ResponseEntity<List<Category>> findCategoryByPid(@RequestParam("pid") Long pid) {
         //校验数据
-        if (pid == null || pid.longValue() < 0) return ResponseEntity.badRequest().build();
+        if (pid == null || pid.longValue() < 0) {
+            return ResponseEntity.badRequest().build();
+        }
         //查询
         List<Category> categories = categoryService.findCategoryByPid(pid);
         //校验结果
-        if (CollectionUtils.isEmpty(categories)) return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(categories);
+        if (!CollectionUtils.isEmpty(categories)) {
+            return ResponseEntity.ok(categories);
+        }
+        return ResponseEntity.notFound().build();
     }
 
     /**
