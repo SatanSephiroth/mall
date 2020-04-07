@@ -1,6 +1,7 @@
 package com.mall.item.pojo;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -14,14 +15,15 @@ public class Category {
     private Long id;
     private String name;
     private Long parentId;
-    private Boolean isParent;
+    @TableField("is_parent")
+    private Boolean bolIsParent;
     private Integer sort;
 
-    public Category(Long id, String name, Long parentId, Boolean isParent, Integer sort) {
+    public Category(Long id, String name, Long parentId, Boolean bolIsParent, Integer sort) {
         this.id = id;
         this.name = name;
         this.parentId = parentId;
-        this.isParent = isParent;
+        this.bolIsParent = bolIsParent;
         this.sort = sort;
     }
 
@@ -40,8 +42,8 @@ public class Category {
         return this.parentId;
     }
 
-    public Boolean getIsParent() {
-        return this.isParent;
+    public Boolean getBolIsParent() {
+        return this.bolIsParent;
     }
 
     public Integer getSort() {
@@ -63,8 +65,8 @@ public class Category {
         return this;
     }
 
-    public Category setIsParent(Boolean isParent) {
-        this.isParent = isParent;
+    public Category setBolIsParent(Boolean bolIsParent) {
+        this.bolIsParent = bolIsParent;
         return this;
     }
 
@@ -75,6 +77,6 @@ public class Category {
 
     @Override
     public String toString() {
-        return "Category(id=" + this.getId() + ", name=" + this.getName() + ", parentId=" + this.getParentId() + ", isParent=" + this.getIsParent() + ", sort=" + this.getSort() + ")";
+        return "Category(id=" + this.getId() + ", name=" + this.getName() + ", parentId=" + this.getParentId() + ", isParent=" + this.getBolIsParent() + ", sort=" + this.getSort() + ")";
     }
 }
